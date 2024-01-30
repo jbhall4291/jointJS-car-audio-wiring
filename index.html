@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.7/joint.css" />
 </head>
+
 <body>
     <!-- content -->
     <div id="myholder"></div>
@@ -17,6 +19,18 @@
     <script type="text/javascript">
 
         var namespace = joint.shapes;
+
+        
+
+var batteryShape = new joint.shapes.basic.Path({
+    size: { width: 16, height: 16 },
+    attrs: {
+        path: {d: 'M439.124,81.16h-68.511V59.424c0-3.946-3.199-7.146-7.146-7.146h-48.999c-3.946,0-7.146,3.199-7.146,7.146V81.16H138.947 V59.424c0-3.946-3.199-7.146-7.146-7.146H82.802c-3.946,0-7.146,3.199-7.146,7.146V81.16H7.146C3.2,81.16,0,84.359,0,88.306 v45.614c0,3.946,3.199,7.146,7.146,7.146h23.201h385.577h23.201c3.945,0,7.146-3.199,7.146-7.146V88.306 C446.27,84.36,443.07,81.16,439.124,81.16z"></path> <path d="M30.346,384.723c0,5.119,4.149,9.27,9.268,9.27h367.041c5.119,0,9.269-4.15,9.269-9.27V165.404H30.346V384.723z M179.262,290.014l21.716-69.401c0.373-1.192,1.478-2.004,2.727-2.004h33.864c0.914,0,1.771,0.438,2.311,1.177 c0.538,0.738,0.689,1.691,0.406,2.561l-13.221,40.839h37.217c1.047,0,2.008,0.572,2.51,1.49c0.5,0.918,0.459,2.035-0.107,2.914 l-49.719,77.149c-0.538,0.835-1.453,1.31-2.402,1.31c-0.343,0-0.689-0.062-1.025-0.19c-1.263-0.485-2.012-1.793-1.793-3.129 l8.028-49.005H181.99c-0.909,0-1.764-0.434-2.302-1.166C179.148,291.826,178.99,290.881,179.262,290.014z',
+            fill: 'currentColor'
+        },
+        text: { text: 'Car Battery', 'font-size': 12, 'ref-y': 0.5, 'y-alignment': 'middle' }
+    }
+});
 
         var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
 
@@ -33,12 +47,12 @@
             },
         });
 
-   
-       
+
+
 
         var battery = new joint.shapes.standard.Rectangle();
         battery.position(400, 20);
-          battery.resize(100, 40);
+        battery.resize(100, 40);
         battery.attr({
             body: {
                 fill: 'blue'
@@ -64,7 +78,7 @@
         });
         wiringLoom.addTo(graph);
 
-        var headunit =  new joint.shapes.standard.Rectangle();
+        var headunit = new joint.shapes.standard.Rectangle();
         headunit.translate(400, 200);
         headunit.resize(100, 40);
         headunit.attr('label/text', 'Headunit');
@@ -83,12 +97,12 @@
         headunit.addTo(graph);
 
 
-        var crossoverL =  new joint.shapes.standard.Rectangle();
+        var crossoverL = new joint.shapes.standard.Rectangle();
         crossoverL.translate(140, 200);
-        
+
 
         crossoverL.resize(100, 40);
-        
+
 
         crossoverL.attr({
             body: {
@@ -101,14 +115,14 @@
         });
         crossoverL.addTo(graph);
 
-       
 
-        var crossoverR =  new joint.shapes.standard.Rectangle();
+
+        var crossoverR = new joint.shapes.standard.Rectangle();
         crossoverR.translate(660, 200);
-        
+
 
         crossoverR.resize(100, 40);
-        
+
 
         crossoverR.attr({
             body: {
@@ -122,31 +136,32 @@
         crossoverR.addTo(graph);
 
 
-
+        paper.model.addCells([batteryShape]);
 
         var link = new joint.shapes.standard.Link();
         link.source(battery);
         link.target(wiringLoom);
 
         link.attr({
-        line: {
-           
-            targetMarker: {
-                'type': 'none',
-                'r': 10,
-                'cx': 1,
-                'fill': 'black',
-                'stroke': 'black'
+            line: {
+
+                targetMarker: {
+                    'type': 'none',
+                    'r': 10,
+                    'cx': 1,
+                    'fill': 'black',
+                    'stroke': 'black'
+                }
             }
-        }
-    });
+        });
         link.labels([{
-    attrs: {
-        text: {
-            text: '+12v'
-        },
-        
-    }}]);
+            attrs: {
+                text: {
+                    text: '+12v'
+                },
+
+            }
+        }]);
 
         link.addTo(graph);
 
@@ -159,24 +174,25 @@
         link2.target(headunit);
 
         link2.attr({
-        line2: {
-           
-            targetMarker: {
-                'type': 'none',
-                'r': 10,
-                'cx': 1,
-                'fill': 'black',
-                'stroke': 'black'
+            line2: {
+
+                targetMarker: {
+                    'type': 'none',
+                    'r': 10,
+                    'cx': 1,
+                    'fill': 'black',
+                    'stroke': 'black'
+                }
             }
-        }
-    });
+        });
         link2.labels([{
-    attrs: {
-        text: {
-            text: 'ISO connector'
-        },
-        
-    }}]);
+            attrs: {
+                text: {
+                    text: 'ISO connector'
+                },
+
+            }
+        }]);
 
         link2.addTo(graph);
 
@@ -190,24 +206,25 @@
         link3.target(crossoverL);
 
         link3.attr({
-        line3: {
-           
-            targetMarker: {
-                'type': 'none',
-                'r': 10,
-                'cx': 1,
-                'fill': 'black',
-                'stroke': 'black'
+            line3: {
+
+                targetMarker: {
+                    'type': 'none',
+                    'r': 10,
+                    'cx': 1,
+                    'fill': 'black',
+                    'stroke': 'black'
+                }
             }
-        }
-    });
+        });
         link3.labels([{
-    attrs: {
-        text: {
-            text: 'Original Wiring'
-        },
-        
-    }}]);
+            attrs: {
+                text: {
+                    text: 'Original Wiring'
+                },
+
+            }
+        }]);
 
         link3.addTo(graph);
 
@@ -217,31 +234,54 @@
         link4.target(crossoverR);
 
         link4.attr({
-        line4: {
-           
-            targetMarker: {
-                'type': 'none',
-                'r': 10,
-                'cx': 1,
-                'fill': 'black',
-                'stroke': 'black'
+            line4: {
+
+                targetMarker: {
+                    'type': 'none',
+                    'r': 10,
+                    'cx': 1,
+                    'fill': 'black',
+                    'stroke': 'black'
+                }
             }
-        }
-    });
+        });
         link4.labels([{
-    attrs: {
-        text: {
-            text: 'Original Wiring'
-        },
-        
-    }}]);
+            attrs: {
+                text: {
+                    text: 'Original Wiring'
+                },
+
+            }
+        }]);
 
         link4.addTo(graph);
 
 
+        // Create a custom battery shape
+var batteryShape = new joint.shapes.basic.Path({
+    size: { width: 16, height: 16 },
+    attrs: {
+        path: {
+            d: 'M439.124,81.16h-68.511V59.424c0-3.946-3.199-7.146-7.146-7.146h-48.999c-3.946,0-7.146,3.199-7.146,7.146V81.16H138.947 V59.424c0-3.946-3.199-7.146-7.146-7.146H82.802c-3.946,0-7.146,3.199-7.146,7.146V81.16H7.146C3.2,81.16,0,84.359,0,88.306 v45.614c0,3.946,3.199,7.146,7.146,7.146h23.201h385.577h23.201c3.945,0,7.146-3.199,7.146-7.146V88.306 C446.27,84.36,443.07,81.16,439.124,81.16z',
+            fill: 'currentColor'
+        },
+        text: { text: 'Car Battery', 'font-size': 12, 'ref-y': 0.5, 'y-alignment': 'middle' }
+    }
+});
+
+// Set position and size for the custom battery shape
+batteryShape.position(400, 20);
+batteryShape.resize(100, 40);
+
+// Add the custom battery shape to the graph
+graph.addCell(batteryShape);
+
+        
+       
 
 
 
     </script>
 </body>
+
 </html>
