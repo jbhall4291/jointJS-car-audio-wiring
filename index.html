@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.7/joint.css" />
+</head>
+<body>
+    <!-- content -->
+    <div id="myholder"></div>
+
+    <!-- dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.7/joint.js"></script>
+
+    <!-- code -->
+    <script type="text/javascript">
+
+        var namespace = joint.shapes;
+
+        var graph = new joint.dia.Graph({}, { cellNamespace: namespace });
+
+        var paper = new joint.dia.Paper({
+            el: document.getElementById('myholder'),
+            model: graph,
+            width: 1000,
+            height: 1000,
+            gridSize: 10,
+            cellViewNamespace: namespace,
+            drawGrid: true,
+            background: {
+                color: 'rgb(100, 149, 237, 0.2)'
+            },
+        });
+
+   
+       
+
+        var battery = new joint.shapes.standard.Rectangle();
+        battery.position(400, 20);
+          battery.resize(100, 40);
+        battery.attr({
+            body: {
+                fill: 'blue'
+            },
+            label: {
+                text: 'Battery',
+                fill: 'white'
+            }
+        });
+        battery.addTo(graph);
+
+        var wiringLoom = new joint.shapes.standard.Rectangle();
+        wiringLoom.translate(400, 100);
+        wiringLoom.resize(100, 40);
+        wiringLoom.attr({
+            body: {
+                fill: 'blue'
+            },
+            label: {
+                text: 'Wiring Loom',
+                fill: 'white'
+            }
+        });
+        wiringLoom.addTo(graph);
+
+        var headunit =  new joint.shapes.standard.Rectangle();
+        headunit.translate(400, 200);
+        headunit.resize(100, 40);
+        headunit.attr('label/text', 'Headunit');
+
+        headunit.attr({
+            body: {
+                fill: 'blue'
+            },
+            label: {
+                text: 'Battery',
+                fill: 'white'
+            }
+        });
+
+
+        headunit.addTo(graph);
+
+
+        var crossoverL =  new joint.shapes.standard.Rectangle();
+        crossoverL.translate(140, 200);
+        
+
+        crossoverL.resize(100, 40);
+        
+
+        crossoverL.attr({
+            body: {
+                fill: 'blue'
+            },
+            label: {
+                text: 'Crossover (L)',
+                fill: 'white'
+            }
+        });
+        crossoverL.addTo(graph);
+
+       
+
+        var crossoverR =  new joint.shapes.standard.Rectangle();
+        crossoverR.translate(660, 200);
+        
+
+        crossoverR.resize(100, 40);
+        
+
+        crossoverR.attr({
+            body: {
+                fill: 'blue'
+            },
+            label: {
+                text: 'Crossover (R)',
+                fill: 'white'
+            }
+        });
+        crossoverR.addTo(graph);
+
+
+
+
+        var link = new joint.shapes.standard.Link();
+        link.source(battery);
+        link.target(wiringLoom);
+
+        link.attr({
+        line: {
+           
+            targetMarker: {
+                'type': 'none',
+                'r': 10,
+                'cx': 1,
+                'fill': 'black',
+                'stroke': 'black'
+            }
+        }
+    });
+        link.labels([{
+    attrs: {
+        text: {
+            text: '+12v'
+        },
+        
+    }}]);
+
+        link.addTo(graph);
+
+
+
+
+
+        var link2 = new joint.shapes.standard.Link();
+        link2.source(wiringLoom);
+        link2.target(headunit);
+
+        link2.attr({
+        line2: {
+           
+            targetMarker: {
+                'type': 'none',
+                'r': 10,
+                'cx': 1,
+                'fill': 'black',
+                'stroke': 'black'
+            }
+        }
+    });
+        link2.labels([{
+    attrs: {
+        text: {
+            text: 'ISO connector'
+        },
+        
+    }}]);
+
+        link2.addTo(graph);
+
+
+
+
+
+
+        var link3 = new joint.shapes.standard.Link();
+        link3.source(headunit);
+        link3.target(crossoverL);
+
+        link3.attr({
+        line3: {
+           
+            targetMarker: {
+                'type': 'none',
+                'r': 10,
+                'cx': 1,
+                'fill': 'black',
+                'stroke': 'black'
+            }
+        }
+    });
+        link3.labels([{
+    attrs: {
+        text: {
+            text: 'Original Wiring'
+        },
+        
+    }}]);
+
+        link3.addTo(graph);
+
+
+        var link4 = new joint.shapes.standard.Link();
+        link4.source(headunit);
+        link4.target(crossoverR);
+
+        link4.attr({
+        line4: {
+           
+            targetMarker: {
+                'type': 'none',
+                'r': 10,
+                'cx': 1,
+                'fill': 'black',
+                'stroke': 'black'
+            }
+        }
+    });
+        link4.labels([{
+    attrs: {
+        text: {
+            text: 'Original Wiring'
+        },
+        
+    }}]);
+
+        link4.addTo(graph);
+
+
+
+
+
+    </script>
+</body>
+</html>
